@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Product {
     private Long id;
     private String name;
-    private String descriptional;
+    private String description;
     private double price;
 
     public Product() {
@@ -14,7 +14,7 @@ public class Product {
 
     public Product(String name, String descriptional, double price) {
         this.name = name;
-        this.descriptional = descriptional;
+        this.description = descriptional;
         this.price = price;
     }
 
@@ -35,11 +35,11 @@ public class Product {
     }
 
     public String getDescriptional() {
-        return descriptional;
+        return description;
     }
 
     public void setDescriptional(String descriptional) {
-        this.descriptional = descriptional;
+        this.description = descriptional;
     }
 
     public double getPrice() {
@@ -58,12 +58,12 @@ public class Product {
         return Double.compare(product.price, price) == 0 &&
                 Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
-                Objects.equals(descriptional, product.descriptional);
+                Objects.equals(description, product.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, descriptional, price);
+        return Objects.hash(id, name, description, price);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", descriptional='" + descriptional + '\'' +
+                ", descriptional='" + description + '\'' +
                 ", price=" + price +
                 '}';
     }

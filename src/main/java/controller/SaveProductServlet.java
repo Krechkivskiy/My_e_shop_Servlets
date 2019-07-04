@@ -19,19 +19,10 @@ public class SaveProductServlet extends HttpServlet {
         ArrayList<Product> productDB = ProductsDataBase.getProductDB();
         Product product = new Product();
         String name = request.getParameter("name");
-        if (name.equals(null)) {
-            product.setName(name);
-        } else {
-            product.setName("undefined");
-        }
+        product.setName(name);
         String descriptional = request.getParameter("descriptional");
-        if (descriptional.equals(null)) {
-            product.setDescriptional(descriptional);
-        } else {
-            product.setDescriptional("undefined");
-        }
+        product.setDescriptional(descriptional);
         String price = request.getParameter("price");
-
         try {
             double priceDouble = Double.parseDouble(price);
             product.setPrice(priceDouble);
@@ -39,6 +30,6 @@ public class SaveProductServlet extends HttpServlet {
         } catch (NumberFormatException nfe) {
             product.setPrice(0.0);
         }
-        productDB.forEach(product1 -> System.out.println(product));
+        productDB.forEach(myProduct -> System.out.println(product));
     }
 }

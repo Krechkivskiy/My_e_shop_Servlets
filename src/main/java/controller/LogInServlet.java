@@ -14,21 +14,25 @@ import java.util.List;
 @WebServlet("/register")
 public class LogInServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException {
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        String email1 = request.getParameter("email");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String repeatedpassword = request.getParameter("rpassword");
+        String repeatedPassword = request.getParameter("rpassword");
         List<User> database = DatabaseUsers.getDatabase();
-        if (password.equals(repeatedpassword)) {
-            database.add(new User(email1, password));
+        if (password.equals(repeatedPassword)) {
+            database.add(new User(email, password));
             request.getRequestDispatcher("product.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.setAttribute("set", email);
+            request.setAttribute("value", "misha");
+            request.getRequestDispatcher("Sign_in.jsp").forward(request, response);
         }
     }
 }
