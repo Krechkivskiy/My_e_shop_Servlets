@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1> welcome to my site please sign in</h1>
-<form action="/profile" method="post">
+<form action="/signin" method="post">
     <input type="text" name="email">
     <input type="password" name="password">
     <input type="submit">

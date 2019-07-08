@@ -12,7 +12,6 @@
 <body>
 <a href="/userForm"><h1> To save new user please enter</h1></a>
 <%
-    UserDaoImpl userDao = new UserDaoImpl();
     UserService userService = UserServiceFactory.getInnstance();
     List<User> userList = userService.getAllUsers();
     PrintWriter printWriter = response.getWriter();

@@ -13,6 +13,8 @@ import java.io.IOException;
 
 @WebServlet("/productSave")
 public class SaveProductServlet extends HttpServlet {
+    private ProductService service = ProductServiceFactory.getIstance();
+
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +24,6 @@ public class SaveProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        ProductService service = ProductServiceFactory.getIstance();
         Product product = new Product();
         String name = request.getParameter("name");
         product.setName(name);

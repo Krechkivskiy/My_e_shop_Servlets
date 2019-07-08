@@ -15,13 +15,14 @@ import java.util.List;
 
 @WebServlet("/register")
 public class RegisterUserServlet extends HttpServlet {
+    private UserService service = UserServiceFactory.getInnstance();
+
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("rpassword");
-        UserService service = UserServiceFactory.getInnstance();
         List<User> allUsers = service.getAllUsers();
         if (password.equals(repeatedPassword)) {
             service.addUser(new User(email, password));

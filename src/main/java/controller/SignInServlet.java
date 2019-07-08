@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/profile")
-public class Profile extends HttpServlet {
+@WebServlet("/signin")
+public class SignInServlet extends HttpServlet {
+    private UserService service = UserServiceFactory.getInnstance();
+
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +25,6 @@ public class Profile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        UserService service = UserServiceFactory.getInnstance();
         User user = new User(request.getParameter("email"),
                 request.getParameter("password"));
         List<User> allUsers = service.getAllUsers();
