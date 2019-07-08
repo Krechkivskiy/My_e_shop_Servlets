@@ -18,7 +18,7 @@
         <button><h1>Add product</h1></button>
     </form>
 </div>
-<div align="right"><h2><a href="/profile"> пользователи </a></h2></div>
+<div align="right"><h2><a href="/signin"> пользователи </a></h2></div>
 <%
     PrintWriter printWriter = response.getWriter();
     ProductDAO instance = ProductDaoFactory.getInstance();
