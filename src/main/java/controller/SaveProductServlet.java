@@ -39,5 +39,4 @@ public class SaveProductServlet extends HttpServlet {
         service.addProduct(product);
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
-
 }
