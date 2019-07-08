@@ -1,7 +1,9 @@
 package controller;
 
-import db.DatabaseUsers;
+
+import factory.UserServiceFactory;
 import model.User;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,27 +14,20 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/register")
-public class LogInServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
+public class RegisterUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("rpassword");
-        List<User> database = DatabaseUsers.getDatabase();
+        UserService service = UserServiceFactory.getInnstance();
+        List<User> allUsers = service.getAllUsers();
         if (password.equals(repeatedPassword)) {
-            database.add(new User(email, password));
-            request.getRequestDispatcher("product.jsp").forward(request, response);
+            service.addUser(new User(email, password));
+            request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
         } else {
-            request.setAttribute("set", email);
-            request.setAttribute("value", "misha");
-            request.getRequestDispatcher("Sign_in.jsp").forward(request, response);
+            request.getRequestDispatcher("Save.jsp").forward(request, response);
         }
     }
 }
