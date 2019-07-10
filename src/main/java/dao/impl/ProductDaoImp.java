@@ -4,7 +4,7 @@ import dao.ProductDAO;
 import db.ProductsDataBase;
 import model.Product;
 
-import java.util.List;
+import java.util.Map;
 
 public class ProductDaoImp implements ProductDAO {
     private ProductsDataBase productsDataBase;
@@ -21,7 +21,17 @@ public class ProductDaoImp implements ProductDAO {
     }
 
     @Override
-    public List<Product> getAll() {
+    public Map<Integer, Product> getAll() {
         return productsDataBase.getProductDB();
+    }
+
+    @Override
+    public void change(Product product) {
+        productsDataBase.change(product);
+    }
+
+    @Override
+    public void deleteProduct(Integer key) {
+        productsDataBase.deleteProduct(key);
     }
 }

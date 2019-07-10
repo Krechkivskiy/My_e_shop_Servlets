@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
-    private UserService service = UserServiceFactory.getInnstance();
+    private static final UserService USER_SERVICE = UserServiceFactory.getInnstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -27,8 +27,8 @@ public class SignInServlet extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
         User user = new User(request.getParameter("email"),
                 request.getParameter("password"));
-        List<User> allUsers = service.getAllUsers();
-        boolean checkIsPresent = service.checkIsPresent(user);
+        Map<Integer, User> allUsers = USER_SERVICE.getAllUsers();
+        boolean checkIsPresent = USER_SERVICE.checkIsPresent(user);
         if (checkIsPresent) {
             request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
         } else {

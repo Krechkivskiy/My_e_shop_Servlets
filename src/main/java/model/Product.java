@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 public class Product {
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private double price;
@@ -17,11 +17,11 @@ public class Product {
         this.price = price;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,12 +33,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getDescriptional() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescriptional(String descriptional) {
-        this.description = descriptional;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -70,7 +70,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", descriptional='" + description + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
     }

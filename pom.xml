@@ -3,35 +3,25 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>L2.1</groupId>
-    <artifactId>L2.1</artifactId>
+    <groupId>My_E_Shop</groupId>
+    <artifactId>My_E_Shop</artifactId>
     <version>1.0</version>
+
+    <packaging>war</packaging>
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <outputDirectory>${basedir}</outputDirectory>
-                    <finalName>server</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <archive>
-                        <manifest>
-                            <mainClass>main.Main</mainClass>
-                        </manifest>
-                    </archive>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
     <properties>
+        <java.version>1.9</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -54,6 +44,12 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
     </dependencies>

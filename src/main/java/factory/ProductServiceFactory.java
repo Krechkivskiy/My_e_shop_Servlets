@@ -9,7 +9,7 @@ public class ProductServiceFactory {
     private ProductServiceFactory() {
     }
 
-    public static ProductService getIstance() {
+    public static ProductService getInstance() {
         if (productService == null) {
             productService = new ProductServiceImpl();
         }

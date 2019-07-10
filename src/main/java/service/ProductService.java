@@ -2,10 +2,14 @@ package service;
 
 import model.Product;
 
-import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     void addProduct(Product product);
 
-    List<Product> getAll();
+    Map<Integer, Product> getAll();
+
+    void change(Product product);
+
+    void deleteProduct(Integer key);
 }

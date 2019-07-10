@@ -2,13 +2,17 @@ package dao;
 
 import model.User;
 
-import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
     void addUser(User user);
 
-    List<User> getAllUsers();
+    Map<Integer, User> getAllUsers();
 
     boolean checkIsPresent(User user);
+
+    void change(User user);
+
+    void deleteUser(Integer key);
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/productSave")
 public class SaveProductServlet extends HttpServlet {
-    private ProductService service = ProductServiceFactory.getIstance();
+    private static final ProductService PRODUCT_SERVICE = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -28,7 +28,7 @@ public class SaveProductServlet extends HttpServlet {
         String name = request.getParameter("name");
         product.setName(name);
         String description = request.getParameter("description");
-        product.setDescriptional(description);
+        product.setDescription(description);
         String price = request.getParameter("price");
         try {
             double priceDouble = Double.parseDouble(price);
@@ -37,7 +37,7 @@ public class SaveProductServlet extends HttpServlet {
         } catch (NumberFormatException nfe) {
             product.setPrice(0.0);
         }
-        service.addProduct(product);
+        PRODUCT_SERVICE.addProduct(product);
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }

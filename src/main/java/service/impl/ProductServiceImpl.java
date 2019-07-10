@@ -3,12 +3,14 @@ package service.impl;
 import dao.ProductDAO;
 import factory.ProductDaoFactory;
 import model.Product;
+import org.apache.log4j.Logger;
 import service.ProductService;
 
-import java.util.List;
+import java.util.Map;
 
 public class ProductServiceImpl implements ProductService {
     private ProductDAO productDAO;
+    private static final Logger LOGGER = Logger.getLogger(ProductServiceImpl.class);
 
     public ProductServiceImpl() {
         if (productDAO == null) {
@@ -19,10 +21,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(Product product) {
         productDAO.addProduct(product);
+        LOGGER.debug("Product " + product + " added in DB");
     }
 
     @Override
-    public List<Product> getAll() {
+    public Map<Integer, Product> getAll() {
         return productDAO.getAll();
+    }
+
+    @Override
+    public void change(Product product) {
+        productDAO.change(product);
+        LOGGER.debug("Product " + product + " changed ");
+    }
+
+    @Override
+    public void deleteProduct(Integer key) {
+        Product product = productDAO.getAll().get(key);
+        productDAO.deleteProduct(key);
+        LOGGER.debug("Product " + product + " deleted from DB");
     }
 }
