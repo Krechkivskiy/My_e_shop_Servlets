@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/userForm"><h1> To save new user please enter</h1></a>
+<a href="/register"><h1> To save new user please enter</h1></a>
 <table border="1">
     <tr>
         <c:forEach var="user" items="${userDB}">

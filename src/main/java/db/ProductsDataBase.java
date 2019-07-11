@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class ProductsDataBase {
     private static final HashMap<Integer, Product> PRODUCT_DATABASE = new HashMap<>();
-    private static Integer id = 0;
+    private static int id = 0;
 
     public ProductsDataBase() {
     }
 
     public void addProduct(Product product) {
         product.setId(id);
-        PRODUCT_DATABASE.put(product.getId(), product);
+        PRODUCT_DATABASE.put(id, product);
         id++;
     }
 

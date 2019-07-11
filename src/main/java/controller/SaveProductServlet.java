@@ -18,6 +18,7 @@ public class SaveProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("productDB", PRODUCT_SERVICE.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 

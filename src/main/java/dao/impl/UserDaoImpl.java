@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public void deleteUser(Integer key) {
-        databaseUsers.deleteUser(key);
+    public void deleteUser(Integer id) {
+        databaseUsers.deleteUser(id);
     }
 }

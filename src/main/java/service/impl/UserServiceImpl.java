@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Integer key) {
-        User user = userDao.getAllUsers().get(key);
-        userDao.deleteUser(key);
+    public void deleteUser(Integer id) {
+        User user = userDao.getAllUsers().get(id);
+        userDao.deleteUser(id);
         LOGGER.debug("user" + user + "deleted in DB");
     }
 

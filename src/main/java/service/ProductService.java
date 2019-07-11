@@ -11,5 +11,5 @@ public interface ProductService {
 
     void edit(Product product);
 
-    void deleteProduct(Integer key);
+    void deleteProduct(Integer id);
 }

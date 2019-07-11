@@ -17,6 +17,12 @@ public class RegisterUserServlet extends HttpServlet {
     private static final UserService USER_SERVICE = UserServiceFactory.getInnstance();
 
     @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("Registration.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -27,7 +33,7 @@ public class RegisterUserServlet extends HttpServlet {
             request.setAttribute("userDB", USER_SERVICE.getAllUsers());
             request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("Save.jsp").forward(request, response);
+            request.getRequestDispatcher("Registration.jsp").forward(request, response);
         }
     }
 }
