@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void change(User user) {
+    public void edit(User user) {
         userDao.change(user);
         LOGGER.debug("user" + user + "changed ");
     }

@@ -9,7 +9,7 @@ public interface ProductService {
 
     Map<Integer, Product> getAll();
 
-    void change(Product product);
+    void edit(Product product);
 
     void deleteProduct(Integer key);
 }

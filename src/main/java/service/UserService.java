@@ -11,7 +11,7 @@ public interface UserService {
 
     boolean checkIsPresent(User user);
 
-    void change(User user);
+    void edit(User user);
 
     void deleteUser(Integer key);
 }
