@@ -20,7 +20,7 @@ public class ChangeUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         idToChange[0] = Integer.valueOf(request.getParameter("id"));
-        request.setAttribute("userDB",USER_SERVICE.getAllUsers());
+        request.setAttribute("userDB", USER_SERVICE.getAllUsers());
         request.getRequestDispatcher("Page_to_change_user.jsp").forward(request, response);
     }
 
@@ -31,7 +31,7 @@ public class ChangeUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = new User(idToChange[0], email, password);
         USER_SERVICE.edit(user);
-        request.setAttribute("userDB",USER_SERVICE.getAllUsers());
+        request.setAttribute("userDB", USER_SERVICE.getAllUsers());
         request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
     }
 }

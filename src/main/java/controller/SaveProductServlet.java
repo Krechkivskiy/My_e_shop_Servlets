@@ -38,6 +38,7 @@ public class SaveProductServlet extends HttpServlet {
             product.setPrice(0.0);
         }
         PRODUCT_SERVICE.addProduct(product);
+        request.setAttribute("productDB", PRODUCT_SERVICE.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }

@@ -19,6 +19,7 @@ public class DeleteProductServlet extends HttpServlet {
         String id = request.getParameter("id");
         Integer productId = Integer.valueOf(id);
         PRODUCT_SERVICE.deleteProduct(productId);
+        request.setAttribute("productDB", PRODUCT_SERVICE.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }
