@@ -4,7 +4,7 @@ import dao.UserDao;
 import db.DatabaseUsers;
 import model.User;
 
-import java.util.Map;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     private DatabaseUsers databaseUsers;
@@ -21,23 +21,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Map<Integer, User> getAllUsers() {
+    public List<User> getAllUsers() {
         return databaseUsers.getAll();
     }
 
     @Override
-    public boolean checkIsPresent(User user) {
-        return databaseUsers.check(user);
+    public User checkIsPresenAndGetFullUserData(User user) {
+        return databaseUsers.checkIsPresenAndGetFullUserData(user);
     }
 
     @Override
-    public void change(User user) {
-        databaseUsers.change(user);
+    public void change(int id, User user) {
+        databaseUsers.change(id, user);
     }
 
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(int id) {
         databaseUsers.deleteUser(id);
     }
 }

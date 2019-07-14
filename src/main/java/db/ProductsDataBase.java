@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductsDataBase {
-    private static final HashMap<Integer, Product> PRODUCT_DATABASE = new HashMap<>();
+    private HashMap<Integer, Product> productDatabase = new HashMap<>();
     private static int id = 0;
 
     public ProductsDataBase() {
@@ -14,19 +14,21 @@ public class ProductsDataBase {
 
     public void addProduct(Product product) {
         product.setId(id);
-        PRODUCT_DATABASE.put(id, product);
+        productDatabase.put(id, product);
         id++;
     }
 
     public Map<Integer, Product> getProductDB() {
-        return PRODUCT_DATABASE;
+        return productDatabase;
     }
 
-    public void change(Product product) {
-        PRODUCT_DATABASE.replace(product.getId(), product);
+    public void edit(Product product) {
+        productDatabase.replace(product.getId(), product);
     }
 
     public void deleteProduct(Integer key) {
-        PRODUCT_DATABASE.remove(key);
+        productDatabase.remove(key);
     }
+
+
 }

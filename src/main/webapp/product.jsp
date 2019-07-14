@@ -11,10 +11,9 @@
         Name <br> <input type="text" name="name"> <br>
         Description <br> <input type="text" name="description"><br>
         Price <br> <input type="text" name="price"><br>
-        <button><h1>Add product</h1></button>
+        <input type="submit">
     </form>
 </div>
-<div align="right"><h2><a href="/signin"> пользователи </a></h2></div>
 <table border="1">
     <tr>
         <c:forEach var="product" items="${productDB}">
@@ -22,12 +21,13 @@
         <td>${product.value.name}</td>
         <td>${product.value.description}</td>
         <td>${product.value.price}</td>
-        <td><a href="/changeProduct?id=${product.value.id}">Change</a></td>
+        <td><a href="/editProduct?id=${product.value.id}">Change</a></td>
         <td><a href="/deleteProduct?id=${product.value.id}">Delete</a></td>
     </tr>
     </c:forEach>
-
     </tr>
 </table>
+<a href="/register">${role}</a>
+<a href="/logout">Выйти</a>
 </body>
 </html>

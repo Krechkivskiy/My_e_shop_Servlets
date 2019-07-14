@@ -2,39 +2,49 @@ package db;
 
 import model.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class DatabaseUsers {
-    private static final Map<Integer, User> USER_DATABASE = new HashMap<>();
+    List<User> dbUsers = new ArrayList<>();
     private static int counter = 0;
 
     public DatabaseUsers() {
-        if (USER_DATABASE.isEmpty()) {
-            USER_DATABASE.put(0, new User(0, "admin", "admin"));
+        if (dbUsers.isEmpty()) {
+            dbUsers.add(new User(counter, "admin", "admin", "admin"));
             counter++;
         }
     }
 
     public void add(User user) {
         user.setId(counter);
-        USER_DATABASE.put(counter, user);
-        counter++;
+        if (!dbUsers.contains(user)) {
+            dbUsers.add(user);
+            counter++;
+        }
     }
 
-    public Map<Integer, User> getAll() {
-        return USER_DATABASE;
+    public List<User> getAll() {
+        return dbUsers;
     }
 
-    public boolean check(User user) {
-        return USER_DATABASE.containsValue(user);
+    public User checkIsPresenAndGetFullUserData(User user) {
+        Iterator<User> iterator = dbUsers.iterator();
+        while (iterator.hasNext()) {
+            User next = iterator.next();
+            if (user.getEmail().equals(next.getEmail()) && user.getPassword().equals(next.getPassword())) {
+                return next;
+            }
+        }
+        return null;
     }
 
-    public void change(User user) {
-        USER_DATABASE.replace(user.getId(), user);
+    public void change(int id, User user) {
+        dbUsers.set(id, user);
     }
 
-    public void deleteUser(Integer key) {
-        USER_DATABASE.remove(key);
+    public void deleteUser(int id) {
+        dbUsers.remove(id);
     }
 }

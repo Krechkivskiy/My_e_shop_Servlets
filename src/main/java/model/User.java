@@ -6,14 +6,22 @@ public class User {
     private int id;
     private String email;
     private String password;
+    private String role;
 
-    public User(String email, String password) {
+    public User(int id, String email, String password, String role) {
+        this.id = id;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    public User(int id, String email, String password) {
-        this.id = id;
+    public User(String email, String password, String role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -42,19 +50,26 @@ public class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
+        return Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password);
+        return Objects.hash(email, password);
     }
 
     @Override
@@ -63,6 +78,7 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

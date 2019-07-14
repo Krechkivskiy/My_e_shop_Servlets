@@ -9,7 +9,7 @@ public interface ProductDAO {
 
     Map<Integer, Product> getAll();
 
-    void change(Product product);
+    void edit(Product product);
 
-    void deleteProduct(Integer id);
+    void deleteProduct(int id);
 }

@@ -10,11 +10,16 @@
 <head>
     <title>Title</title>
 </head>
-
 <body>
-<form action="/changeUser" method="post" name="myForm">
+<form action="/admin/editUser" method="post" name="myForm">
+    <input value="${id}" name="id" type="hidden">
     new email<br><input type="text" name="email"><br>
     new password<br> <input type="password" name="password"> <br>
+    <select name="role">
+        <option>admin</option>
+        <option>user</option>
+    </select>
     <input type="submit" name="btn"></form>
 </body>
+<a href="/logout">Выйти</a>
 </html>

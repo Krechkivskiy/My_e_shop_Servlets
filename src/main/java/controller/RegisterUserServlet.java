@@ -12,14 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/register")
+@WebServlet("/admin/register")
 public class RegisterUserServlet extends HttpServlet {
-    private static final UserService USER_SERVICE = UserServiceFactory.getInnstance();
+    private UserService userService = UserServiceFactory.getInnstance();
+
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Registration.jsp").forward(request, response);
+        request.getRequestDispatcher("/Registration.jsp").forward(request, response);
     }
 
     @Override
@@ -28,12 +29,16 @@ public class RegisterUserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("rpassword");
+        String role = request.getParameter("role");
+        User user = new User(email, password, role);
         if (password.equals(repeatedPassword)) {
-            USER_SERVICE.addUser(new User(email, password));
-            request.setAttribute("userDB", USER_SERVICE.getAllUsers());
-            request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
+            userService.addUser(user);
+            request.getSession().setAttribute("user", user);
+            request.getRequestDispatcher("/Page_to_save.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("Registration.jsp").forward(request, response);
+            request.setAttribute("email", email);
+            request.setAttribute("errorMessage", "please enter the same password");
+            request.getRequestDispatcher("/Registration.jsp").forward(request, response);
         }
     }
 }

@@ -11,27 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/changeUser")
-public class ChangeUserServlet extends HttpServlet {
-    private static final UserService USER_SERVICE = UserServiceFactory.getInnstance();
-    private int[] idToChange = new int[1];
+@WebServlet("/admin/editUser")
+public class EditUserServlet extends HttpServlet {
+    private UserService userService = UserServiceFactory.getInnstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
-        idToChange[0] = Integer.valueOf(request.getParameter("id"));
-        request.setAttribute("userDB", USER_SERVICE.getAllUsers());
-        request.getRequestDispatcher("Page_to_change_user.jsp").forward(request, response);
+        int id = Integer.valueOf(request.getParameter("id"));
+        request.setAttribute("id", id);
+        request.getRequestDispatcher("/Page_to_change_user.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+        Integer id = Integer.valueOf(request.getParameter("id"));
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = new User(idToChange[0], email, password);
-        USER_SERVICE.edit(user);
-        request.setAttribute("userDB", USER_SERVICE.getAllUsers());
-        request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
+        String role = request.getParameter("role");
+        User user = new User(email, password, role);
+        userService.edit(id, user);
+        request.setAttribute("userDB", userService.getAllUsers());
+        request.getRequestDispatcher("/Page_to_save.jsp").forward(request, response);
     }
 }

@@ -11,11 +11,13 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/changeProduct" method="post" name="myForm">
+<form action="/editProduct" method="post" name="myForm">
+    <input value="${id}" name="id" type="hidden">
     new name<br><input type="text" name="name"><br>
     new description <br><input type="text" name="description"><br>
     new price <br><input type="text" name="price"><br>
     <input type="submit" name="btn"></form>
 </body>
+<a href="/logout">Выйти</a>
 </body>
 </html>

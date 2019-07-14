@@ -2,16 +2,16 @@ package service;
 
 import model.User;
 
-import java.util.Map;
+import java.util.List;
 
 public interface UserService {
     void addUser(User user);
 
-    Map<Integer, User> getAllUsers();
+    List<User> getAllUsers();
 
-    boolean checkIsPresent(User user);
+    User checkIsPresentAndReturnFullData(User user);
 
-    void edit(User user);
+    void edit(int id, User user);
 
-    void deleteUser(Integer id);
+    void deleteUser(int id);
 }

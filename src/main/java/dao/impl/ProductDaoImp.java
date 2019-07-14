@@ -26,12 +26,12 @@ public class ProductDaoImp implements ProductDAO {
     }
 
     @Override
-    public void change(Product product) {
-        productsDataBase.change(product);
+    public void edit(Product product) {
+        productsDataBase.edit(product);
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(int id) {
         productsDataBase.deleteProduct(id);
     }
 }

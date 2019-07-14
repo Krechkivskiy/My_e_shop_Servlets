@@ -13,12 +13,11 @@ import java.io.IOException;
 
 @WebServlet("/productSave")
 public class SaveProductServlet extends HttpServlet {
-    private static final ProductService PRODUCT_SERVICE = ProductServiceFactory.getInstance();
+    private ProductService productService = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("productDB", PRODUCT_SERVICE.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 
@@ -34,12 +33,10 @@ public class SaveProductServlet extends HttpServlet {
         try {
             double priceDouble = Double.parseDouble(price);
             product.setPrice(priceDouble);
-
         } catch (NumberFormatException nfe) {
             product.setPrice(0.0);
         }
-        PRODUCT_SERVICE.addProduct(product);
-        request.setAttribute("productDB", PRODUCT_SERVICE.getAll());
+        productService.addProduct(product);
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }
