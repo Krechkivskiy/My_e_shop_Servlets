@@ -1,7 +1,9 @@
 package controller;
 
+import factory.ProductServiceFactory;
 import factory.UserServiceFactory;
 import model.User;
+import service.ProductService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,13 +16,15 @@ import java.util.Optional;
 
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
-    private static UserService userService = UserServiceFactory.getInnstance();
+    private static final UserService userService = UserServiceFactory.getInnstance();
+    private static final ProductService productService = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         Optional<User> user = (Optional<User>) request.getSession().getAttribute("user");
         if (user.isPresent() && user.get().getRole().equals("admin")) {
+            request.setAttribute("userDb",userService.getAllUsers());
             request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("Error_Page.jsp").forward(request, response);
@@ -36,9 +40,11 @@ public class SignInServlet extends HttpServlet {
         if (user.isPresent()) {
             if (user.get().getRole().equals("admin")) {
                 request.getSession().setAttribute("user", user.get());
+                request.setAttribute("userDB", userService.getAllUsers());
                 request.getRequestDispatcher("Page_to_save.jsp").forward(request, response);
             } else {
                 request.getSession().setAttribute("user", user.get());
+                request.setAttribute("productDB", productService.getAll());
                 request.getRequestDispatcher("product.jsp").forward(request, response);
             }
         } else {

@@ -13,11 +13,12 @@ import java.io.IOException;
 
 @WebServlet("/productSave")
 public class SaveProductServlet extends HttpServlet {
-    private ProductService productService = ProductServiceFactory.getInstance();
+    private static final ProductService productService = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("productDB", productService.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 
@@ -37,6 +38,7 @@ public class SaveProductServlet extends HttpServlet {
             product.setPrice(0.0);
         }
         productService.addProduct(product);
+        request.setAttribute("productDB", productService.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }

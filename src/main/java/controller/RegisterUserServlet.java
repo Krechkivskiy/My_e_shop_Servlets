@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/admin/register")
 public class RegisterUserServlet extends HttpServlet {
-    private UserService userService = UserServiceFactory.getInnstance();
+    private static final UserService userService = UserServiceFactory.getInnstance();
 
 
     @Override
@@ -34,6 +34,7 @@ public class RegisterUserServlet extends HttpServlet {
         if (password.equals(repeatedPassword)) {
             userService.addUser(user);
             request.getSession().setAttribute("user", user);
+            request.setAttribute("userDB", userService.getAllUsers());
             request.getRequestDispatcher("/Page_to_save.jsp").forward(request, response);
         } else {
             request.setAttribute("email", email);

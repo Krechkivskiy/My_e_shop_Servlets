@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @WebFilter("/*")
-public class DbSetFilter implements Filter {
-    UserServiceImpl userService = new UserServiceImpl();
-    ProductServiceImpl productService = new ProductServiceImpl();
-
+public class SetCharsetFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -26,8 +23,6 @@ public class DbSetFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         req.setCharacterEncoding("UTF-8");
-        req.setAttribute("userDB", userService.getAllUsers());
-        req.setAttribute("productDB", productService.getAll());
         chain.doFilter(req, response);
     }
 

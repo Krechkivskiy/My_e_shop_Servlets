@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/admin/editUser")
 public class EditUserServlet extends HttpServlet {
-    private UserService userService = UserServiceFactory.getInnstance();
+    private static final UserService userService = UserServiceFactory.getInnstance();
 
     @Override
     protected void doGet(HttpServletRequest request,

@@ -12,13 +12,14 @@ import java.io.IOException;
 
 @WebServlet("/deleteProduct")
 public class DeleteProductServlet extends HttpServlet {
-    private ProductService productService = ProductServiceFactory.getInstance();
+    private static final ProductService productService = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         Integer productId = Integer.valueOf(id);
         productService.deleteProduct(productId);
+        request.setAttribute("productDB", productService.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }

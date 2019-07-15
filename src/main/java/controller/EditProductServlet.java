@@ -13,7 +13,8 @@ import java.io.IOException;
 
 @WebServlet("/editProduct")
 public class EditProductServlet extends HttpServlet {
-    private ProductService userService = ProductServiceFactory.getInstance();
+    private static final ProductService productService = ProductServiceFactory.getInstance();
+
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -38,7 +39,8 @@ public class EditProductServlet extends HttpServlet {
         } catch (NumberFormatException nfe) {
             product.setPrice(0.0);
         }
-        userService.edit(product);
+        productService.edit(product);
+        request.setAttribute("productDB", productService.getAll());
         request.getRequestDispatcher("product.jsp").forward(request, response);
     }
 }
