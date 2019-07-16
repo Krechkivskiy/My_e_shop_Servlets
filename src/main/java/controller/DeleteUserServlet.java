@@ -18,6 +18,7 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         Integer id = Integer.valueOf(request.getParameter("id"));
         userService.deleteUser(Integer.valueOf(id));
         request.setAttribute("userDatabase", userService.getAllUsers());
