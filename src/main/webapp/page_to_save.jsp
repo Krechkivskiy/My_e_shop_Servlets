@@ -8,7 +8,7 @@
 <a href="/admin/register"><h1> To save new user please enter</h1></a>
 <table border="1">
     <tr>
-        <c:forEach var="user" items="${userDB}">
+        <c:forEach var="user" items="${userDatabase}">
     <tr>
         <td>${user.email}</td>
         <td>${user.password}</td>
@@ -18,7 +18,7 @@
     </c:forEach>
     </tr>
 </table>
-<h1><a href="/productSave"> add product </a></h1>
+<h1><a href="/admin/productSave"> add product </a></h1>
 <a href="/logout">Выйти</a>
 </body>
 </html>

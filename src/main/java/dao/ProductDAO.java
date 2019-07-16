@@ -2,12 +2,13 @@ package dao;
 
 import model.Product;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ProductDAO {
+
     void addProduct(Product product);
 
-    Map<Integer, Product> getAll();
+    List<Product> getAll();
 
     void edit(Product product);
 

@@ -3,6 +3,7 @@ package model;
 import java.util.Objects;
 
 public class Product {
+
     private Integer id;
     private String name;
     private String description;

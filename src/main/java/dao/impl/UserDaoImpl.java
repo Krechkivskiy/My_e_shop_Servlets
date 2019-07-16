@@ -7,6 +7,7 @@ import model.User;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+
     private DatabaseUsers databaseUsers;
 
     public UserDaoImpl() {
@@ -26,8 +27,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User checkIsPresenAndGetFullUserData(User user) {
-        return databaseUsers.checkIsPresenAndGetFullUserData(user);
+    public User checkIsPresentAndGetFullUserData(User user) {
+        return databaseUsers.checkIsPresentAndGetFullUserData(user);
     }
 
     @Override

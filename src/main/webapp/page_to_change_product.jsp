@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/editProduct" method="post" name="myForm">
+<form action="/admin/editProduct" method="post" name="myForm">
     <input value="${id}" name="id" type="hidden">
     new name<br><input type="text" name="name"><br>
     new description <br><input type="text" name="description"><br>

@@ -7,26 +7,28 @@
 <body>
 <h1></h1>
 <div align="center">
-    <form action="/productSave" method="post">
+    <form action="/admin/productSave" method="post">
         Name <br> <input type="text" name="name"> <br>
         Description <br> <input type="text" name="description"><br>
         Price <br> <input type="text" name="price"><br>
         <input type="submit">
     </form>
+    ${priceError}
 </div>
 <table border="1">
     <tr>
-        <c:forEach var="product" items="${productDB}">
+        <c:forEach var="product" items="${productDatabase}">
     <tr>
-        <td>${product.value.name}</td>
-        <td>${product.value.description}</td>
-        <td>${product.value.price}</td>
-        <td><a href="/editProduct?id=${product.value.id}">Change</a></td>
-        <td><a href="/deleteProduct?id=${product.value.id}">Delete</a></td>
+        <td>${product.name}</td>
+        <td>${product.description}</td>
+        <td>${product.price}</td>
+        <td><a href="/admin/editProduct?id=${product.id}">Change</a></td>
+        <td><a href="/admin/deleteProduct?id=${product.id}">Delete</a></td>
     </tr>
     </c:forEach>
     </tr>
 </table>
+
 <a href="/register">${role}</a>
 <a href="/logout">Выйти</a>
 </body>

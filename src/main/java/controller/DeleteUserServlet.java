@@ -12,14 +12,15 @@ import java.io.IOException;
 
 @WebServlet("/admin/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
+
     private static final UserService userService = UserServiceFactory.getInnstance();
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Integer id = Integer.valueOf(request.getParameter("id"));
         userService.deleteUser(Integer.valueOf(id));
-        request.setAttribute("userDB", userService.getAllUsers());
-        request.getRequestDispatcher("/Page_to_save.jsp").forward(request, response);
+        request.setAttribute("userDatabase", userService.getAllUsers());
+        request.getRequestDispatcher("/page_to_save.jsp").forward(request, response);
     }
 }

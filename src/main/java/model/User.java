@@ -3,28 +3,56 @@ package model;
 import java.util.Objects;
 
 public class User {
+
     private int id;
     private String email;
     private String password;
     private String role;
+    private Box box;
+    private String verificationCode;
+
 
     public User(int id, String email, String password, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        box = new Box();
     }
 
     public User(String email, String password, String role) {
         this.email = email;
         this.password = password;
         this.role = role;
+        box = new Box();
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        box = new Box();
     }
+
+    public void addProduct(Product product) {
+        box.add(product);
+    }
+
+    public void clear() {
+        box.clear();
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public int getBoxSize() {
+        return box.size();
+    }
+
+    public void setVerificationCode(String code) {
+        this.verificationCode = code;
+    }
+
 
     public int getId() {
         return id;

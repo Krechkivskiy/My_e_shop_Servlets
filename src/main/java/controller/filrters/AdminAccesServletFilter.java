@@ -15,21 +15,22 @@ import java.io.IOException;
 
 @WebFilter("/admin/*")
 public class AdminAccesServletFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest,
-                         ServletResponse servletResponse,
-                         FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         User user = (User) request.getSession().getAttribute("user");
         if (user != null && user.getRole().equals("admin")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            request.getRequestDispatcher("/Error_Page.jsp").forward(request, response);
+            request.getRequestDispatcher("/error_page.jsp").forward(request, response);
         }
     }
 

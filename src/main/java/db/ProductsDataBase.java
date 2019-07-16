@@ -2,32 +2,35 @@ package db;
 
 import model.Product;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsDataBase {
-    private HashMap<Integer, Product> productDatabase = new HashMap<>();
+
+    private List<Product> productDatabase = new ArrayList<>();
     private static int id = 0;
 
     public ProductsDataBase() {
     }
 
     public void addProduct(Product product) {
-        product.setId(id);
-        productDatabase.put(id, product);
-        id++;
+        if (!productDatabase.contains(product)) {
+            product.setId(id);
+            productDatabase.add(product);
+            id++;
+        }
     }
 
-    public Map<Integer, Product> getProductDB() {
+    public List<Product> getProductDatabase() {
         return productDatabase;
     }
 
     public void edit(Product product) {
-        productDatabase.replace(product.getId(), product);
+        productDatabase.set(product.getId(), product);
     }
 
-    public void deleteProduct(Integer key) {
-        productDatabase.remove(key);
+    public void deleteProduct(int id) {
+        productDatabase.remove(id);
     }
 
 

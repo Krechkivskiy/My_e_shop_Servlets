@@ -6,9 +6,10 @@ import model.Product;
 import org.apache.log4j.Logger;
 import service.ProductService;
 
-import java.util.Map;
+import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
+
     private ProductDAO productDAO;
     private static final Logger LOGGER = Logger.getLogger(ProductServiceImpl.class);
 
@@ -21,11 +22,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(Product product) {
         productDAO.addProduct(product);
-        LOGGER.debug("Product " + product + " added in DB");
+        LOGGER.debug("Product " + product + " added in Database");
     }
 
     @Override
-    public Map<Integer, Product> getAll() {
+    public List<Product> getAll() {
         return productDAO.getAll();
     }
 
@@ -39,6 +40,6 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Integer id) {
         Product product = productDAO.getAll().get(id);
         productDAO.deleteProduct(id);
-        LOGGER.debug("Product " + product + " deleted from DB");
+        LOGGER.debug("Product " + product + " deleted from Database");
     }
 }

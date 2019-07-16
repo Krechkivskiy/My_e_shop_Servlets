@@ -10,7 +10,7 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    User checkIsPresenAndGetFullUserData(User user);
+    User checkIsPresentAndGetFullUserData(User user);
 
     void change(int id, User user);
 

@@ -11,22 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/editProduct")
+@WebServlet("/admin/editProduct")
 public class EditProductServlet extends HttpServlet {
+
     private static final ProductService productService = ProductServiceFactory.getInstance();
 
-
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String id = request.getParameter("id");
         request.setAttribute("id", id);
-        request.getRequestDispatcher("/Page_to_change_product.jsp").forward(request, response);
+        request.getRequestDispatcher("/page_to_change_product.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         Integer id = Integer.valueOf(request.getParameter("id"));
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -37,10 +39,11 @@ public class EditProductServlet extends HttpServlet {
             double priceDouble = Double.parseDouble(price);
             product.setPrice(priceDouble);
         } catch (NumberFormatException nfe) {
-            product.setPrice(0.0);
+            request.setAttribute("priceError","Incorrect price  please try again");
+            request.getRequestDispatcher("/product.jsp").forward(request,response);
         }
         productService.edit(product);
-        request.setAttribute("productDB", productService.getAll());
-        request.getRequestDispatcher("product.jsp").forward(request, response);
+        request.setAttribute("productDatabase", productService.getAll());
+        request.getRequestDispatcher("/product.jsp").forward(request, response);
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class UserServiceImpl implements UserService {
+
     private UserDao userDao;
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkIsPresentAndReturnFullData(User user) {
-        return userDao.checkIsPresenAndGetFullUserData(user);
+        return userDao.checkIsPresentAndGetFullUserData(user);
     }
 
     @Override
@@ -39,13 +40,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         User user = userDao.getAllUsers().get(id);
         userDao.deleteUser(id);
-        LOGGER.debug("user" + user + "deleted in DB");
+        LOGGER.debug("user" + user + "deleted in Database");
     }
 
     @Override
     public void addUser(User user) {
         user.setId(userDao.getAllUsers().size());
         userDao.addUser(user);
-        LOGGER.debug("user" + user + "added in DB");
+        LOGGER.debug("user" + user + "added in Database");
     }
 }

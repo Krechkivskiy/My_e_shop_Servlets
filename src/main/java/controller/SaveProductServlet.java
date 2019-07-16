@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/productSave")
+@WebServlet("/admin/productSave")
 public class SaveProductServlet extends HttpServlet {
     private static final ProductService productService = ProductServiceFactory.getInstance();
 
@@ -19,7 +19,7 @@ public class SaveProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("productDB", productService.getAll());
-        request.getRequestDispatcher("product.jsp").forward(request, response);
+        request.getRequestDispatcher("/product.jsp").forward(request, response);
     }
 
     @Override
@@ -35,10 +35,12 @@ public class SaveProductServlet extends HttpServlet {
             double priceDouble = Double.parseDouble(price);
             product.setPrice(priceDouble);
         } catch (NumberFormatException nfe) {
-            product.setPrice(0.0);
+            request.setAttribute("priceError","incorrect price ");
+            request.setAttribute("productDatabase",productService.getAll());
+            request.getRequestDispatcher("/product.jsp").forward(request,response);
         }
         productService.addProduct(product);
         request.setAttribute("productDB", productService.getAll());
-        request.getRequestDispatcher("product.jsp").forward(request, response);
+        request.getRequestDispatcher("/product.jsp").forward(request, response);
     }
 }

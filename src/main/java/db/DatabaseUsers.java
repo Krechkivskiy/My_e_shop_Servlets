@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DatabaseUsers {
+
     List<User> dbUsers = new ArrayList<>();
     private static int counter = 0;
 
@@ -18,8 +19,8 @@ public class DatabaseUsers {
     }
 
     public void add(User user) {
-        user.setId(counter);
         if (!dbUsers.contains(user)) {
+            user.setId(counter);
             dbUsers.add(user);
             counter++;
         }
@@ -29,7 +30,7 @@ public class DatabaseUsers {
         return dbUsers;
     }
 
-    public User checkIsPresenAndGetFullUserData(User user) {
+    public User checkIsPresentAndGetFullUserData(User user) {
         Iterator<User> iterator = dbUsers.iterator();
         while (iterator.hasNext()) {
             User next = iterator.next();

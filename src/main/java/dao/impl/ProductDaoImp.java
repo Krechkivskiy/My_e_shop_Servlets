@@ -4,9 +4,10 @@ import dao.ProductDAO;
 import db.ProductsDataBase;
 import model.Product;
 
-import java.util.Map;
+import java.util.List;
 
 public class ProductDaoImp implements ProductDAO {
+
     private ProductsDataBase productsDataBase;
 
     public ProductDaoImp() {
@@ -21,8 +22,8 @@ public class ProductDaoImp implements ProductDAO {
     }
 
     @Override
-    public Map<Integer, Product> getAll() {
-        return productsDataBase.getProductDB();
+    public List<Product> getAll() {
+        return productsDataBase.getProductDatabase();
     }
 
     @Override
