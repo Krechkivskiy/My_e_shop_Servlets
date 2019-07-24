@@ -19,8 +19,8 @@ import java.util.List;
 public class OrderDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
-    private static final String CONFIRM_ORDER = "UPDATE `order` SET confirmed=true WHERE basket_id =? ORDER BY id desc; ";
-    private static final String GET_ORDER_ID_BY_BASKET = "SELECT id FROM `order` WHERE basket_id = ? ORDER BY id DESC";
+    private static final String CONFIRM_ORDER = "UPDATE `order` SET confirmed=true WHERE user_id =?";
+    private static final String GET_ORDER_ID_BY_USER = "SELECT id FROM `order` WHERE user_id =? ORDER BY id DESC";
     private static final String GET_PRODUCT_LIST_BY_ORDER =
             "SELECT products.name, products.description,products.price " +
                     "FROM products INNER " +
@@ -28,8 +28,8 @@ public class OrderDaoImpl implements OrderDao {
                     "INNER JOIN basket ON product_basket.id = basket.id " +
                     "WHERE basket.user_id =? ORDER BY basket.id DESC";
     private static final String CREATE_ORDER = "INSERT " +
-            "INTO `order`(name,phone_number,surname,new_post_adress,basket_id) " +
-            "VALUES (?,?,?,?,?)";
+            "INTO `order`(name,phone_number,surname,new_post_adress,basket_id,user_id) " +
+            "VALUES (?,?,?,?,?,?)";
 
     @Override
     public void createOrder(Order order) {
@@ -40,6 +40,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setString(3, order.getSurname());
             statement.setString(4, order.getNewPostAdress());
             statement.setInt(5, order.getBasketId());
+            statement.setInt(6, order.getUserId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("incorrect try to create order", e);
@@ -47,21 +48,21 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void confirmOrder(Basket basket) {
+    public void confirmOrder(User user) {
         try (Connection connection = MySqlConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(CONFIRM_ORDER);
-            statement.setInt(1, basket.getId());
+            statement.setInt(1, user.getId());
         } catch (SQLException e) {
             LOGGER.error("incorrect try to confirm order");
         }
     }
 
     @Override
-    public int getIdByBasket(int basketId) {
+    public int getIdByUser(User user) {
         int id = 0;
         try (Connection connection = MySqlConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_ORDER_ID_BY_BASKET);
-            statement.setInt(1, basketId);
+            PreparedStatement statement = connection.prepareStatement(GET_ORDER_ID_BY_USER);
+            statement.setInt(1, user.getId());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 id = resultSet.getInt("id");

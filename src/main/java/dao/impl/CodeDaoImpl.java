@@ -30,11 +30,11 @@ public class CodeDaoImpl implements CodeDao {
     }
 
     @Override
-    public int getCode(Order order) {
+    public int getCode(int orderId) {
         int value = 0;
         try (Connection connection = MySqlConnection.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_CODE_BY_ORDER);
-            preparedStatement.setInt(1, order.getId());
+            preparedStatement.setInt(1, orderId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 value = resultSet.getInt("value");

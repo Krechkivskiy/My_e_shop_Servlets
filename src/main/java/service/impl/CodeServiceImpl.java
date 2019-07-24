@@ -3,7 +3,6 @@ package service.impl;
 import dao.CodeDao;
 import factory.CodeDaoFactory;
 import model.Code;
-import model.Order;
 import service.CodeService;
 
 public class CodeServiceImpl implements CodeService {
@@ -16,7 +15,7 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public int getCode(Order order) {
-        return codeDao.getCode(order);
+    public int getCode(int orderId) {
+        return codeDao.getCode(orderId);
     }
 }

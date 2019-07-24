@@ -1,6 +1,5 @@
 package dao;
 
-import model.Basket;
 import model.Order;
 import model.Product;
 import model.User;
@@ -11,10 +10,10 @@ public interface OrderDao {
 
     void createOrder(Order order);
 
-    int getIdByBasket(int basketId);
+    int getIdByUser(User user);
 
     List<Product> getBasket(User user);
 
-    void confirmOrder(Basket basket);
+    void confirmOrder(User user);
 
 }

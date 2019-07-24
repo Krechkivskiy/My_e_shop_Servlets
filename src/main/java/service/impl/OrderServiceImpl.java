@@ -2,7 +2,6 @@ package service.impl;
 
 import dao.OrderDao;
 import factory.OrderDaoFactory;
-import model.Basket;
 import model.Order;
 import model.Product;
 import model.User;
@@ -15,13 +14,14 @@ public class OrderServiceImpl implements OrderService {
     private static final OrderDao orderDao = OrderDaoFactory.getInstance();
 
     @Override
-    public void createOrder(Order order) {
-        orderDao.createOrder(order);
+    public void createOrder(Order orderId) {
+        orderDao.createOrder(orderId);
     }
 
+
     @Override
-    public int getIdByBasket(int basketId) {
-        return orderDao.getIdByBasket(basketId);
+    public int getIdByUser(User user) {
+        return orderDao.getIdByUser(user);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void confirmOrder(Order order) {
-        orderDao.confirmOrder(order);
+    public void confirmOrder(User user) {
+        orderDao.confirmOrder(user);
     }
 }

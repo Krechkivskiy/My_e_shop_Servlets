@@ -30,9 +30,12 @@ public class ConfirmServlet extends HttpServlet {
         Order order = new Order(request.getParameter("name"),
                 request.getParameter("surname"), request.getParameter("newPostAdress"),
                 Integer.valueOf(request.getParameter("phone")), user.getBoxId());
+        order.setUserId(user.getId());
         orderService.createOrder(order);
-        int idBasket = orderService.getIdByBasket(user.getBoxId());
-        order.setId(idBasket);
+        int orderId = orderService.getIdByUser(user);
+        order.setId(orderId);
+        user.setOrderId(orderId);
+        request.getSession().setAttribute("user",user);
         Code code = new Code(Generator.getVerificationCode(), order);
         CodeService codeService = CodeServiceFactory.getInstance();
         codeService.add(code);
@@ -47,12 +50,11 @@ public class ConfirmServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String inputCode = request.getParameter("code");
-        Order order1 = (Order) request.getSession().getAttribute("order");
-        int code = CodeServiceFactory.getInstance().getCode(order1);
+        User user = (User) request.getSession().getAttribute("user");
+        int code = CodeServiceFactory.getInstance().getCode(user.getOrderId());
         if (inputCode.equals(String.valueOf(code))) {
             OrderService orderService = OrderServiceFactory.getInstance();
-            //TODO допилить подтверждение через корзину
-            orderService.confirmOrder();
+            orderService.confirmOrder(user);
             request.setAttribute("resultOrder", "Succes");
             request.getRequestDispatcher("buy_product.jsp").forward(request, response);
         } else {

@@ -7,5 +7,5 @@ public interface CodeDao  {
 
     void  add(Code code);
 
-    int getCode(Order order);
+    int getCode(int orderId);
 }

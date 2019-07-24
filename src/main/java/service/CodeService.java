@@ -6,5 +6,5 @@ import model.Order;
 public interface CodeService {
     void  add(Code code);
 
-    int getCode(Order order);
+    int getCode(int orderId);
 }

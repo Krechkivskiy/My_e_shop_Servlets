@@ -8,12 +8,11 @@ import java.util.List;
 
 public interface OrderService {
 
-
     void createOrder(Order order);
 
-    int getIdByBasket(int basketId);
+    int getIdByUser(User user);
 
     List<Product> getBasket(User user);
 
-    void confirmOrder(Order order);
+    void confirmOrder(User user);
 }

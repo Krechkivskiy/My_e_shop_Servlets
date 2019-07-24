@@ -8,6 +8,7 @@ public class Order {
     private String newPostAdress;
     private int phoneNumber;
     private int basketId;
+    private int userId;
 
     public Order(String name, String surname, String newPostAdress, int phoneNumber, int basketId) {
         this.name = name;
@@ -39,6 +40,14 @@ public class Order {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getNewPostAdress() {

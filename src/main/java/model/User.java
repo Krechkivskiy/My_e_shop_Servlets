@@ -8,8 +8,8 @@ public class User {
     private String email;
     private String password;
     private String role;
-    private String verificationCode;
     private int boxId;
+    private int orderId;
 
 
     public int getBoxId() {
@@ -38,8 +38,12 @@ public class User {
         this.password = password;
     }
 
-    public String getVerificationCode() {
-        return verificationCode;
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getId() {
