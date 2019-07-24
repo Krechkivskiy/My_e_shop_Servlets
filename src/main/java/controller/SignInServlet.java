@@ -42,7 +42,8 @@ public class SignInServlet extends HttpServlet {
         UserService userService = UserServiceFactory.getInnstance();
         User inputUser = new User(request.getParameter("email"),
                 request.getParameter("password"));
-        Optional<User> user = Optional.ofNullable(userService.checkIsPresentAndReturnFullData(inputUser));
+        Optional<User> user = Optional
+                .ofNullable(userService.checkIsPresentAndReturnFullData(inputUser));
         if (user.isPresent()) {
             User userNotNull = user.get();
             userService.checkIsPresentAndReturnFullData(userNotNull);
@@ -59,7 +60,8 @@ public class SignInServlet extends HttpServlet {
                     userNotNull.setBoxId(basketIdByUser);
                 }
                 request.getSession().setAttribute("user", userNotNull);
-                request.setAttribute("box", basketService.getCountOfElements(userNotNull) + " elements");
+                request.setAttribute("box", basketService
+                        .getCountOfElements(userNotNull) + " elements");
                 request.getRequestDispatcher("/buy_product.jsp").forward(request, response);
             }
         } else {

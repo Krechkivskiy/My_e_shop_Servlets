@@ -34,7 +34,8 @@ public class DatabaseUsers {
         Iterator<User> iterator = dbUsers.iterator();
         while (iterator.hasNext()) {
             User next = iterator.next();
-            if (user.getEmail().equals(next.getEmail()) && user.getPassword().equals(next.getPassword())) {
+            if (user.getEmail().equals(next.getEmail()) && user.getPassword()
+                    .equals(next.getPassword())) {
                 return next;
             }
         }

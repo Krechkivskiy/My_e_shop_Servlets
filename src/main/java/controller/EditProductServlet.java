@@ -22,7 +22,8 @@ public class EditProductServlet extends HttpServlet {
 
         String id = request.getParameter("id");
         request.setAttribute("id", id);
-        request.getRequestDispatcher("/page_to_change_product.jsp").forward(request, response);
+        request.getRequestDispatcher("/page_to_change_product.jsp")
+                .forward(request, response);
     }
 
     @Override

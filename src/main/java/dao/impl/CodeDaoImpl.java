@@ -15,7 +15,8 @@ public class CodeDaoImpl implements CodeDao {
 
     private static final Logger LOGGER = Logger.getLogger(CodeDaoImpl.class);
     private static final String ADD_CODE = "INSERT INTO code(value,order_id) VALUE (?,?)";
-    private static final String GET_CODE_BY_ORDER = "SELECT value FROM code WHERE order_id=? ORDER BY id DESC";
+    private static final String GET_CODE_BY_ORDER = "SELECT value FROM code WHERE order_id=? " +
+            "ORDER BY id DESC";
 
     @Override
     public void add(Code code) {

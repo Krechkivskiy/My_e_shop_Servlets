@@ -19,8 +19,10 @@ import java.util.List;
 public class OrderDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
-    private static final String CONFIRM_ORDER = "UPDATE `order` SET confirmed=true WHERE user_id =?";
-    private static final String GET_ORDER_ID_BY_USER = "SELECT id FROM `order` WHERE user_id =? ORDER BY id DESC";
+    private static final String CONFIRM_ORDER = "UPDATE `order` SET confirmed=true " +
+            "WHERE user_id =?";
+    private static final String GET_ORDER_ID_BY_USER = "SELECT id FROM `order` WHERE user_id =? " +
+            "ORDER BY id DESC";
     private static final String GET_PRODUCT_LIST_BY_ORDER =
             "SELECT products.name, products.description, products.price " +
                     "FROM products INNER JOIN product_basket" +

@@ -16,10 +16,13 @@ import java.util.List;
 public class UserMysqlDaoImpl implements UserDao {
 
     private static final Logger LOGGER = Logger.getLogger(UserMysqlDaoImpl.class);
-    private static final String ADD_USER_TO_DB = "INSERT INTO users(email,password,role) VALUE(?,?,?)";
+    private static final String ADD_USER_TO_DB = "INSERT INTO users(email,password,role)" +
+            " VALUE(?,?,?)";
     private static final String GET_ALL = "SELECT * FROM users LIMIT 1";
-    private static final String CHECK_IS_PRESENT_USER = "SELECT * FROM users WHERE email=? AND password=?";
-    private static final String CHANGE_USER = "UPDATE users SET email=?,password=?,role=? WHERE users.id=?";
+    private static final String CHECK_IS_PRESENT_USER = "SELECT * FROM users" +
+            " WHERE email=? AND password=?";
+    private static final String CHANGE_USER = "UPDATE users SET email=?,password=?,role=? " +
+            "WHERE users.id=?";
     private static final String DELETE_USER = " DELETE FROM users WHERE id=?";
 
     public UserMysqlDaoImpl() {
@@ -63,7 +66,8 @@ public class UserMysqlDaoImpl implements UserDao {
     public User checkIsPresentAndGetFullUserData(User user) {
         User result = null;
         try (Connection connection = MySqlConnection.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_IS_PRESENT_USER);
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(CHECK_IS_PRESENT_USER);
             String password = PasswordHashGenerator.getCode(user.getPassword());
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, password);

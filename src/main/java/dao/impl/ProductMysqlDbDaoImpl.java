@@ -15,13 +15,19 @@ import java.util.List;
 public class ProductMysqlDbDaoImpl implements ProductDAO {
 
     private static final Logger LOGGER = Logger.getLogger(UserMysqlDaoImpl.class);
-    private Connection connection = MySqlConnection.getConnection();
+    private static final String GET_ALL_PRODUCTS = "SELECT * FROM products ";
+    private static final String ADD_PRODUCT = "INSERT INTO products(name,description,price) " +
+            "VALUE(?,?,?)";
+    private static final String EDIT_PRODUCT = "UPDATE products SET name=?,description=?,price=?";
+    private static final String DELETE_PRODUCT = "DELETE FROM products where id =?";
 
     @Override
     public void addProduct(Product product) {
-        String query = "INSERT INTO products(name,description,price) VALUE('" +
-                product.getName() + "','" + product.getDescription() + "','" + product.getPrice() + "')";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getDescription());
+            preparedStatement.setDouble(33, product.getPrice());
             preparedStatement.executeLargeUpdate();
         } catch (SQLException e) {
             LOGGER.info("incorrect try to add product" + product);
@@ -31,8 +37,8 @@ public class ProductMysqlDbDaoImpl implements ProductDAO {
     @Override
     public List<Product> getAll() {
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM products ";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PRODUCTS);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Integer id = Integer.valueOf(resultSet.getString(1));
@@ -49,8 +55,8 @@ public class ProductMysqlDbDaoImpl implements ProductDAO {
 
     @Override
     public void edit(Product product) {
-        String query = "UPDATE products SET name=?,description=?,price='" + product.getPrice() + "'";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(EDIT_PRODUCT);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setString(2, product.getDescription());
             preparedStatement.executeUpdate();
@@ -61,7 +67,8 @@ public class ProductMysqlDbDaoImpl implements ProductDAO {
 
     @Override
     public void deleteProduct(int id) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products where id =?");) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT);
             preparedStatement.setString(1, String.valueOf(id));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
