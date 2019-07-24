@@ -15,4 +15,5 @@ public interface UserDao {
     void change(int id, User user);
 
     void deleteUser(int id);
+
 }

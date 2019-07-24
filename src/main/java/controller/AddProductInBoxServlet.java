@@ -1,8 +1,9 @@
 package controller;
 
+import factory.BasketServiceFactory;
 import factory.ProductServiceFactory;
-import model.Product;
 import model.User;
+import service.BasketService;
 import service.ProductService;
 
 import javax.servlet.ServletException;
@@ -15,19 +16,19 @@ import java.io.IOException;
 @WebServlet("/addToBox")
 public class AddProductInBoxServlet extends HttpServlet {
 
+    private static final BasketService basketService = BasketServiceFactory.getInstance();
     private static final ProductService productService = ProductServiceFactory.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Integer productId = Integer.valueOf(request.getParameter("product.id"));
-        Product product = productService.getAll().get(productId);
+        int productId = Integer.valueOf(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
-        user.addProduct(product);
+        basketService.addProduct(user, productId);
         request.getSession().setAttribute("user", user);
         request.setAttribute("productDatabase", productService.getAll());
-        request.setAttribute("box", "BOX - " + user.getBoxSize() + " elements");
+        request.setAttribute("box", basketService.getCountOfElements(user));
         request.getRequestDispatcher("/buy_product.jsp").forward(request, response);
     }
 }

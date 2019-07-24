@@ -1,8 +1,10 @@
 package controller;
 
+import factory.BasketServiceFactory;
 import factory.ProductServiceFactory;
 import factory.UserServiceFactory;
 import model.User;
+import service.BasketService;
 import service.ProductService;
 import service.UserService;
 
@@ -37,23 +39,32 @@ public class SignInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        UserService userService = UserServiceFactory.getInnstance();
         User inputUser = new User(request.getParameter("email"),
                 request.getParameter("password"));
         Optional<User> user = Optional.ofNullable(userService.checkIsPresentAndReturnFullData(inputUser));
         if (user.isPresent()) {
-            if (user.get().getRole().equals("admin")) {
-                request.getSession().setAttribute("user", user.get());
+            User userNotNull = user.get();
+            userService.checkIsPresentAndReturnFullData(userNotNull);
+            if (userNotNull.getRole().equals("admin")) {
+                request.getSession().setAttribute("user", userNotNull);
                 request.setAttribute("userDatabase", userService.getAllUsers());
-                request.getRequestDispatcher("page_to_save.jsp").forward(request, response);
+                request.getRequestDispatcher("/page_to_save.jsp").forward(request, response);
             } else {
-                request.getSession().setAttribute("user", user.get());
                 request.setAttribute("productDatabase", productService.getAll());
-                request.setAttribute("box", "BOX - " + user.get().getBoxSize() + " elements");
-                request.getRequestDispatcher("buy_product.jsp").forward(request, response);
+                BasketService basketService = BasketServiceFactory.getInstance();
+                if (userNotNull.getBoxId()== 0) {
+                    basketService.createBasket(userNotNull);
+                    int basketIdByUser = basketService.getBasketIdByUser(userNotNull);
+                    userNotNull.setBoxId(basketIdByUser);
+                }
+                request.getSession().setAttribute("user", userNotNull);
+                request.setAttribute("box", basketService.getCountOfElements(userNotNull) + " elements");
+                request.getRequestDispatcher("/buy_product.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("errorMessage", "incorrect data please try again");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 }

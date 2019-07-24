@@ -19,7 +19,7 @@ public class SaveProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("productDB", productService.getAll());
+        request.setAttribute("productDatabase", productService.getAll());
         request.getRequestDispatcher("/product.jsp").forward(request, response);
     }
 
@@ -42,7 +42,7 @@ public class SaveProductServlet extends HttpServlet {
             request.getRequestDispatcher("/product.jsp").forward(request,response);
         }
         productService.addProduct(product);
-        request.setAttribute("productDB", productService.getAll());
+        request.setAttribute("productDatabase", productService.getAll());
         request.getRequestDispatcher("/product.jsp").forward(request, response);
     }
 }

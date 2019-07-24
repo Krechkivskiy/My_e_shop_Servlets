@@ -22,7 +22,7 @@
         <td>${product.name}</td>
         <td>${product.description}</td>
         <td>${product.price}</td>
-        <td><a href="/admin/editProduct?id=${product.id}">Change</a></td>
+        <td><a href="/admin/editProduct?id=${product.id}">Change</a> ${product.id}</td>
         <td><a href="/admin/deleteProduct?id=${product.id}">Delete</a></td>
     </tr>
     </c:forEach>

@@ -2,10 +2,7 @@ package util;
 
 import java.util.Random;
 
-public class Verificator {
-
-    private Verificator() {
-    }
+public class Generator {
 
     public static int getVerificationCode() {
         Random random = new Random();

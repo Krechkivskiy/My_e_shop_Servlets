@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.debug("user" + user + "deleted in Database");
     }
 
+
     @Override
     public void addUser(User user) {
         user.setId(userDao.getAllUsers().size());

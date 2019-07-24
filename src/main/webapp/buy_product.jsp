@@ -17,15 +17,15 @@
     <tr>
         <c:forEach var="product" items="${productDatabase}">
     <tr>
-        <td>${product.value.name}</td>
-        <td>${product.value.description}</td>
-        <td>${product.value.price}</td>
-        <td><a href="/addToBox?id=${product.value.id}">Add to box </a></td>
+        <td>${product.name}</td>
+        <td>${product.description}</td>
+        <td>${product.price}</td>
+        <td><a href="/addToBox?id=${product.id}">Add to box </a></td>
     </tr>
     </c:forEach>
     </tr>
 </table>
-<a href="/buy"> ${box}</a>
+<a href="/buy"> Елементов в корзине   ${box}</a>
 <a href="/logout">Выйти</a>
 
 </body>

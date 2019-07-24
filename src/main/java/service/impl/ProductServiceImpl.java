@@ -38,8 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Integer id) {
-        Product product = productDAO.getAll().get(id);
         productDAO.deleteProduct(id);
-        LOGGER.debug("Product " + product + " deleted from Database");
+        LOGGER.debug("Product with id  "+id  + " deleted from Database");
     }
 }

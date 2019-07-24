@@ -1,18 +1,18 @@
 package factory;
 
 import dao.UserDao;
-import dao.impl.UserDaoImpl;
+import dao.impl.UserMysqlDaoImpl;
 
 public class UserDaoFactory {
 
-    private static UserDaoImpl instance;
+    private static UserDao instance;
 
     private UserDaoFactory() {
     }
 
     public static UserDao getInstance() {
         if (instance == null) {
-            instance = new UserDaoImpl();
+            instance = new UserMysqlDaoImpl();
         }
         return instance;
     }

@@ -41,4 +41,5 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(int id) {
         databaseUsers.deleteUser(id);
     }
+
 }
