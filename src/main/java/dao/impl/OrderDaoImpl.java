@@ -22,9 +22,9 @@ public class OrderDaoImpl implements OrderDao {
     private static final String CONFIRM_ORDER = "UPDATE `order` SET confirmed=true WHERE user_id =?";
     private static final String GET_ORDER_ID_BY_USER = "SELECT id FROM `order` WHERE user_id =? ORDER BY id DESC";
     private static final String GET_PRODUCT_LIST_BY_ORDER =
-            "SELECT products.name, products.description,products.price " +
-                    "FROM products INNER " +
-                    "JOIN product_basket ON products.id= product_basket.product_id " +
+            "SELECT products.name, products.description, products.price " +
+                    "FROM products INNER JOIN product_basket" +
+                    "ON products.id= product_basket.product_id " +
                     "INNER JOIN basket ON product_basket.id = basket.id " +
                     "WHERE basket.user_id =? ORDER BY basket.id DESC";
     private static final String CREATE_ORDER = "INSERT " +

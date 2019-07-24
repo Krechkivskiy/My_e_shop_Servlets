@@ -4,6 +4,7 @@ import dao.UserDao;
 import model.User;
 import org.apache.log4j.Logger;
 import util.MySqlConnection;
+import util.PasswordHashGenerator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +16,24 @@ import java.util.List;
 public class UserMysqlDaoImpl implements UserDao {
 
     private static final Logger LOGGER = Logger.getLogger(UserMysqlDaoImpl.class);
-    private Connection connection = MySqlConnection.getConnection();
+    private static final String ADD_USER_TO_DB = "INSERT INTO users(email,password,role) VALUE(?,?,?)";
+    private static final String GET_ALL = "SELECT * FROM users LIMIT 1";
+    private static final String CHECK_IS_PRESENT_USER = "SELECT * FROM users WHERE email=? AND password=?";
+    private static final String CHANGE_USER = "UPDATE users SET email=?,password=?,role=? WHERE users.id=?";
+    private static final String DELETE_USER = " DELETE FROM users WHERE id=?";
 
     public UserMysqlDaoImpl() {
     }
 
     @Override
     public void addUser(User user) {
-        String query = "INSERT INTO users(email,password,role) VALUE('" + user.getEmail()
-                + "','" + user.getPassword() + "','" + user.getRole() + "')";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        String hashedPassword = PasswordHashGenerator.getCode(user.getPassword());
+        user.setPassword(hashedPassword);
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_TO_DB);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getRole());
             preparedStatement.executeLargeUpdate();
         } catch (SQLException e) {
             LOGGER.error("incorrect try to add user", e);
@@ -34,8 +43,8 @@ public class UserMysqlDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM users ";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String email = resultSet.getString(2);
@@ -53,9 +62,11 @@ public class UserMysqlDaoImpl implements UserDao {
     @Override
     public User checkIsPresentAndGetFullUserData(User user) {
         User result = null;
-        String sql = "SELECT * FROM users WHERE email=?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_IS_PRESENT_USER);
+            String password = PasswordHashGenerator.getCode(user.getPassword());
             preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 result = new User(resultSet.getString(2),
@@ -70,8 +81,8 @@ public class UserMysqlDaoImpl implements UserDao {
 
     @Override
     public void change(int id, User user) {
-        String sql = "UPDATE users SET email=?,password=?,role=? WHERE users.id=?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER);
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getRole());
@@ -84,12 +95,10 @@ public class UserMysqlDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(int id) {
-        String sql = " DELETE FROM users WHERE id=?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = MySqlConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER);
             preparedStatement.setString(1, String.valueOf(id));
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             LOGGER.error("incorrect try to delete user", e);
         }

@@ -14,7 +14,7 @@ public class BasketDaoImpl implements BasketDao {
 
     private static final Logger LOGGER = Logger.getLogger(BasketDaoImpl.class);
     private static final String ADD_PRODUCT = "INSERT INTO product_basket(basket_id,product_id) value(?,?)";
-    private static final String GET_BASKET_ID_BY_USER = "SELECT id FROM basket WHERE user_id =? ORDER BY id DESC ";
+    private static final String GET_BASKET_ID_BY_USER = "SELECT id FROM basket WHERE user_id =? ORDER BY id DESC";
     private static final String CREATE_BASKET = "INSERT INTO basket(user_id) VALUE(?)";
     private static final String GET_SIZE_OF_BOX = "SELECT COUNT(*) FROM product_basket WHERE basket_id = ?";
 

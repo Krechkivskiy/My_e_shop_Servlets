@@ -1,15 +1,18 @@
 package model;
 
+import java.util.List;
+
 public class Basket {
 
     private int id;
     private User user;
-    private Product product;
+    private List<Product> productList;
 
-    public Basket(int id, User user, Product product) {
+
+    public Basket(int id, User user, List<Product> productList) {
         this.id = id;
         this.user = user;
-        this.product = product;
+        this.productList = productList;
     }
 
     public int getId() {
