@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class UserServiceImpl implements UserService {
@@ -21,33 +22,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void addUser(User user) {
+        userDao.addUser(user);
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
     @Override
-    public User checkIsPresentAndReturnFullData(User user) {
+    public Optional<User> checkIsPresentAndGetFullUserData(User user) {
         return userDao.checkIsPresentAndGetFullUserData(user);
     }
 
     @Override
-    public void edit(int id, User user) {
+    public void change(User user) {
+        userDao.change(user);
+    }
+
+    @Override
+    public void change(int id, User user) {
         userDao.change(id, user);
-        LOGGER.debug("user" + user + "changed ");
     }
 
     @Override
     public void deleteUser(int id) {
-        User user = userDao.getAllUsers().get(id);
         userDao.deleteUser(id);
-        LOGGER.debug("user" + user + "deleted in Database");
     }
-
 
     @Override
-    public void addUser(User user) {
-        user.setId(userDao.getAllUsers().size());
-        userDao.addUser(user);
-        LOGGER.debug("user" + user + "added in Database");
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
     }
+
+
 }

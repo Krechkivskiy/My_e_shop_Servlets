@@ -10,6 +10,8 @@ public interface OrderDao {
 
     void createOrder(Order order);
 
+    Order getOrderByUser(User user);
+
     int getIdByUser(User user);
 
     List<Product> getBasket(User user);

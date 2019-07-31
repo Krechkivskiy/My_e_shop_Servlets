@@ -2,6 +2,7 @@ package factory;
 
 import dao.UserDao;
 import dao.impl.UserMysqlDaoImpl;
+import dao.impl.hibernate.UserHibernateDao;
 
 public class UserDaoFactory {
 
@@ -12,7 +13,7 @@ public class UserDaoFactory {
 
     public static UserDao getInstance() {
         if (instance == null) {
-            instance = new UserMysqlDaoImpl();
+            instance = new UserHibernateDao();
         }
         return instance;
     }

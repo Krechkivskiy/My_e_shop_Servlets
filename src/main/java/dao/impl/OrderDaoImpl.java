@@ -41,12 +41,17 @@ public class OrderDaoImpl implements OrderDao {
             statement.setInt(2, order.getPhoneNumber());
             statement.setString(3, order.getSurname());
             statement.setString(4, order.getNewPostAdress());
-            statement.setInt(5, order.getBasketId());
-            statement.setInt(6, order.getUserId());
+            statement.setInt(5, order.getBasket().getId());
+            statement.setInt(6, order.getBasket().getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("incorrect try to create order", e);
         }
+    }
+
+    @Override
+    public Order getOrderByUser(User user) {
+        return null;
     }
 
     @Override

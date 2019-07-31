@@ -45,4 +45,9 @@ public class CodeDaoImpl implements CodeDao {
         }
         return value;
     }
+
+    @Override
+    public int getCode(Order order) {
+        return 0;
+    }
 }

@@ -7,4 +7,6 @@ public interface CodeService {
     void  add(Code code);
 
     int getCode(int orderId);
+
+    int getCode(Order order);
 }

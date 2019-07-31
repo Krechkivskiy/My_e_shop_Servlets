@@ -5,6 +5,7 @@ import db.DatabaseUsers;
 import model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
@@ -27,8 +28,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User checkIsPresentAndGetFullUserData(User user) {
+    public Optional<User> checkIsPresentAndGetFullUserData(User user) {
         return databaseUsers.checkIsPresentAndGetFullUserData(user);
+    }
+
+    @Override
+    public void change(User user) {
+
     }
 
     @Override
@@ -41,5 +47,11 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(int id) {
         databaseUsers.deleteUser(id);
     }
+
+    @Override
+    public void deleteUser(User user) {
+
+    }
+
 
 }

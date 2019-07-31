@@ -20,7 +20,7 @@ public class DeleteUserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Integer id = Integer.valueOf(request.getParameter("id"));
-        userService.deleteUser(Integer.valueOf(id));
+        userService.deleteUser(id);
         request.setAttribute("userDatabase", userService.getAllUsers());
         request.getRequestDispatcher("/page_to_save.jsp").forward(request, response);
     }

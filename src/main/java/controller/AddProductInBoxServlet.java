@@ -2,6 +2,7 @@ package controller;
 
 import factory.BasketServiceFactory;
 import factory.ProductServiceFactory;
+import model.Product;
 import model.User;
 import service.BasketService;
 import service.ProductService;
@@ -25,11 +26,17 @@ public class AddProductInBoxServlet extends HttpServlet {
 
         int productId = Integer.valueOf(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
-        basketService.addProduct(user, productId);
-        request.getSession().setAttribute("user", user);
-        request.setAttribute("productDatabase", productService.getAll());
-        request.setAttribute("box", basketService.getCountOfElements(user));
-        request.getRequestDispatcher("/buy_product.jsp").forward(request, response);
+        if (user.getBasket() == null) {
+            basketService.createBasket(user);
+        }
+        if (productService.getById(productId).isPresent()) {
+            Product product = productService.getById(productId).get();
+            basketService.addProduct(user, product);
+            request.getSession().setAttribute("user", user);
+            request.setAttribute("productDatabase", productService.getAll());
+            request.setAttribute("box", basketService.getCountOfElements(user));
+            request.getRequestDispatcher("/buy_product.jsp").forward(request, response);
+        }
     }
 }
 

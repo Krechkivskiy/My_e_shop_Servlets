@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductMysqlDbDaoImpl implements ProductDAO {
 
@@ -27,11 +28,16 @@ public class ProductMysqlDbDaoImpl implements ProductDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setString(2, product.getDescription());
-            preparedStatement.setDouble(33, product.getPrice());
+            preparedStatement.setDouble(3, product.getPrice());
             preparedStatement.executeLargeUpdate();
         } catch (SQLException e) {
             LOGGER.info("incorrect try to add product" + product);
         }
+    }
+
+    @Override
+    public Optional<Product> getById(int id) {
+        return null;
     }
 
     @Override

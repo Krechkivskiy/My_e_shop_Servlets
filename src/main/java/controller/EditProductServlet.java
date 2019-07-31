@@ -40,8 +40,8 @@ public class EditProductServlet extends HttpServlet {
             double priceDouble = Double.parseDouble(price);
             product.setPrice(priceDouble);
         } catch (NumberFormatException nfe) {
-            request.setAttribute("priceError","Incorrect price  please try again");
-            request.getRequestDispatcher("/product.jsp").forward(request,response);
+            request.setAttribute("priceError", "Incorrect price  please try again");
+            request.getRequestDispatcher("/product.jsp").forward(request, response);
         }
         productService.edit(product);
         request.setAttribute("productDatabase", productService.getAll());

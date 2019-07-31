@@ -1,21 +1,49 @@
 package model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "orders")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "new_post_adress")
     private String newPostAdress;
+    @Column(name = "phone_number")
     private int phoneNumber;
-    private int basketId;
-    private int userId;
+    @Column(name = "isConfirmed")
+    private boolean isConfirmed;
+    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    private Basket basket;
+    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    private User user;
 
-    public Order(String name, String surname, String newPostAdress, int phoneNumber, int basketId) {
+    public Order() {
+    }
+
+    public Order(String name, String surname, String newPostAdress, int phoneNumber, boolean isConfirmed, Basket basket, User user) {
         this.name = name;
         this.surname = surname;
         this.newPostAdress = newPostAdress;
         this.phoneNumber = phoneNumber;
-        this.basketId = basketId;
+        this.isConfirmed = isConfirmed;
+        this.basket = basket;
+        this.user = user;
     }
 
     public int getId() {
@@ -38,16 +66,32 @@ public class Order {
         return surname;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
+
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public int getUserId() {
-        return userId;
+    public Basket getBasket() {
+        return basket;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNewPostAdress() {
@@ -66,13 +110,6 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getBasketId() {
-        return basketId;
-    }
-
-    public void setBasketId(int basketId) {
-        this.basketId = basketId;
-    }
 
     @Override
     public String toString() {
@@ -81,7 +118,7 @@ public class Order {
                 ", surname='" + surname + '\'' +
                 ", newPostAdress='" + newPostAdress + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", basketId=" + basketId +
+                ", basket=" + basket +
                 '}';
     }
 

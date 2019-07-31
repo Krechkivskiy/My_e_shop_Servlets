@@ -25,19 +25,16 @@ public class ConfirmServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        CodeService codeService = CodeServiceFactory.getInstance();
         OrderService orderService = OrderServiceFactory.getInstance();
         User user = (User) request.getSession().getAttribute("user");
         Order order = new Order(request.getParameter("name"),
                 request.getParameter("surname"), request.getParameter("newPostAdress"),
-                Integer.valueOf(request.getParameter("phone")), user.getBoxId());
-        order.setUserId(user.getId());
+                Integer.valueOf(request.getParameter("phone")), false, user.getBasket(), user);
         orderService.createOrder(order);
-        int orderId = orderService.getIdByUser(user);
-        order.setId(orderId);
-        user.setOrderId(orderId);
-        request.getSession().setAttribute("user",user);
-        Code code = new Code(Generator.getVerificationCode(), order);
-        CodeService codeService = CodeServiceFactory.getInstance();
+        Order orderWithDb = orderService.getOrderUser(user);
+        request.getSession().setAttribute("user", user);
+        Code code = new Code(Generator.getVerificationCode(), orderWithDb);
         codeService.add(code);
         String email = user.getEmail();
         MailService mailService = new MailServiceImpl();
@@ -51,9 +48,10 @@ public class ConfirmServlet extends HttpServlet {
 
         String inputCode = request.getParameter("code");
         User user = (User) request.getSession().getAttribute("user");
-        int code = CodeServiceFactory.getInstance().getCode(user.getOrderId());
+        OrderService orderService = OrderServiceFactory.getInstance();
+        Order orderUser = orderService.getOrderUser(user);
+        int code = CodeServiceFactory.getInstance().getCode(orderUser);
         if (inputCode.equals(String.valueOf(code))) {
-            OrderService orderService = OrderServiceFactory.getInstance();
             orderService.confirmOrder(user);
             request.setAttribute("resultOrder", "Succes");
             request.getRequestDispatcher("buy_product.jsp").forward(request, response);

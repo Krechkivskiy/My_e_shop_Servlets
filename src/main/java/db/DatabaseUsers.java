@@ -5,6 +5,7 @@ import model.User;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class DatabaseUsers {
 
@@ -13,7 +14,7 @@ public class DatabaseUsers {
 
     public DatabaseUsers() {
         if (dbUsers.isEmpty()) {
-            dbUsers.add(new User(counter, "admin", "admin", "admin"));
+            dbUsers.add(new User( "admin", "admin", "admin"));
             counter++;
         }
     }
@@ -30,16 +31,16 @@ public class DatabaseUsers {
         return dbUsers;
     }
 
-    public User checkIsPresentAndGetFullUserData(User user) {
+    public Optional<User> checkIsPresentAndGetFullUserData(User user) {
         Iterator<User> iterator = dbUsers.iterator();
         while (iterator.hasNext()) {
             User next = iterator.next();
             if (user.getEmail().equals(next.getEmail()) && user.getPassword()
                     .equals(next.getPassword())) {
-                return next;
+                return Optional.ofNullable(next);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public void change(int id, User user) {

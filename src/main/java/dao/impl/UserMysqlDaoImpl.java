@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserMysqlDaoImpl implements UserDao {
 
@@ -52,9 +53,8 @@ public class UserMysqlDaoImpl implements UserDao {
             while (resultSet.next()) {
                 String email = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                Integer id = Integer.valueOf(resultSet.getString(1));
                 String role = resultSet.getString(4);
-                userList.add(new User(id, email, password, role));
+                userList.add(new User(email,password,role));
             }
         } catch (SQLException e) {
             LOGGER.error("incorrect try to get all user", e);
@@ -63,7 +63,7 @@ public class UserMysqlDaoImpl implements UserDao {
     }
 
     @Override
-    public User checkIsPresentAndGetFullUserData(User user) {
+    public Optional<User> checkIsPresentAndGetFullUserData(User user) {
         User result = null;
         try (Connection connection = MySqlConnection.getConnection()) {
             PreparedStatement preparedStatement = connection
@@ -80,7 +80,12 @@ public class UserMysqlDaoImpl implements UserDao {
         } catch (SQLException e) {
             LOGGER.error("incorrect try to check user", e);
         }
-        return result;
+        return Optional.ofNullable(result);
+    }
+
+    @Override
+    public void change(User user) {
+
     }
 
     @Override
@@ -106,5 +111,9 @@ public class UserMysqlDaoImpl implements UserDao {
         } catch (SQLException e) {
             LOGGER.error("incorrect try to delete user", e);
         }
+    }
+
+    @Override
+    public void deleteUser(User user) {
     }
 }

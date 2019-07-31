@@ -1,6 +1,8 @@
 package dao.impl;
 
 import dao.BasketDao;
+import model.Basket;
+import model.Product;
 import model.User;
 import org.apache.log4j.Logger;
 import util.MySqlConnection;
@@ -9,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class BasketDaoImpl implements BasketDao {
 
@@ -33,6 +36,10 @@ public class BasketDaoImpl implements BasketDao {
     }
 
     @Override
+    public void createBasket(Basket basket) {
+    }
+
+    @Override
     public int getBasketIdByUser(User user) {
         int id = 0;
         try (Connection connection = MySqlConnection.getConnection()) {
@@ -49,6 +56,7 @@ public class BasketDaoImpl implements BasketDao {
         return id;
     }
 
+
     @Override
     public void addProduct(User user, int productId) {
         try (Connection connection = MySqlConnection.getConnection()) {
@@ -63,7 +71,16 @@ public class BasketDaoImpl implements BasketDao {
     }
 
     @Override
-    public int getCountOfElements(User user) {
+    public void addProduct(User user, Product product) {
+    }
+
+    @Override
+    public Optional<Basket> getBasketByUser(User user) {
+        return null;
+    }
+
+    @Override
+    public long getCountOfElements(User user) {
         int result = 0;
         try (Connection connection = MySqlConnection.getConnection()) {
             int basketIdByUser = getBasketIdByUser(user);

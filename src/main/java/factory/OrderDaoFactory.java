@@ -2,6 +2,7 @@ package factory;
 
 import dao.OrderDao;
 import dao.impl.OrderDaoImpl;
+import dao.impl.hibernate.OrderHiberateDaoImpl;
 
 public class OrderDaoFactory {
 
@@ -12,7 +13,7 @@ public class OrderDaoFactory {
 
     public static OrderDao getInstance() {
         if (orderDao == null) {
-            orderDao = new OrderDaoImpl();
+            orderDao = new OrderHiberateDaoImpl();
         }
         return orderDao;
     }

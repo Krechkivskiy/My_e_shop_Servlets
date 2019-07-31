@@ -3,6 +3,7 @@ package dao;
 import model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDao {
 
@@ -10,10 +11,14 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    User checkIsPresentAndGetFullUserData(User user);
+    Optional<User> checkIsPresentAndGetFullUserData(User user);
+
+    void change(User user);
 
     void change(int id, User user);
 
     void deleteUser(int id);
+
+    void deleteUser(User user);
 
 }

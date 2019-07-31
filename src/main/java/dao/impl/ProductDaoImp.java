@@ -5,6 +5,7 @@ import db.ProductsDataBase;
 import model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductDaoImp implements ProductDAO {
 
@@ -19,6 +20,11 @@ public class ProductDaoImp implements ProductDAO {
     @Override
     public void addProduct(Product product) {
         productsDataBase.addProduct(product);
+    }
+
+    @Override
+    public Optional<Product> getById(int id) {
+        return Optional.empty();
     }
 
     @Override

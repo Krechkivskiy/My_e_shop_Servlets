@@ -2,6 +2,7 @@ package factory;
 
 import dao.CodeDao;
 import dao.impl.CodeDaoImpl;
+import dao.impl.hibernate.CodeHibernateDao;
 
 public class CodeDaoFactory {
 
@@ -12,7 +13,7 @@ public class CodeDaoFactory {
 
     public static CodeDao getInstance() {
         if (codeDao == null) {
-            codeDao = new CodeDaoImpl();
+            codeDao = new CodeHibernateDao();
         }
         return codeDao;
     }

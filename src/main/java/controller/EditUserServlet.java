@@ -34,7 +34,8 @@ public class EditUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = request.getParameter("role");
         User user = new User(email, password, role);
-        userService.edit(id, user);
+        user.setId(id);
+        userService.change(user);
         request.setAttribute("userDatabase", userService.getAllUsers());
         request.getRequestDispatcher("/page_to_save.jsp").forward(request, response);
     }

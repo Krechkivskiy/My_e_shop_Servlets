@@ -18,11 +18,11 @@ public class OrderServiceImpl implements OrderService {
         orderDao.createOrder(orderId);
     }
 
-
     @Override
-    public int getIdByUser(User user) {
-        return orderDao.getIdByUser(user);
+    public Order getOrderUser(User user) {
+        return orderDao.getOrderByUser(user);
     }
+
 
     @Override
     public List<Product> getBasket(User user) {

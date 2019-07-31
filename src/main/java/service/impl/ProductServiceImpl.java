@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -37,8 +38,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Optional<Product> getById(int id) {
+        return productDAO.getById(id);
+    }
+
+    @Override
     public void deleteProduct(Integer id) {
         productDAO.deleteProduct(id);
-        LOGGER.debug("Product with id  "+id  + " deleted from Database");
+        LOGGER.debug("Product with id  " + id + " deleted from Database");
     }
 }

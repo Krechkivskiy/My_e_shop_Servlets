@@ -1,41 +1,72 @@
 package model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "email", unique = true)
     private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "role")
     private String role;
-    private int boxId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Basket basket;
+    @Column(name = "orderId")
     private int orderId;
 
-
-    public int getBoxId() {
-        return boxId;
+    public User() {
     }
 
-    public void setBoxId(int boxId) {
-        this.boxId = boxId;
-    }
-
-    public User(int id, String email, String password, String role) {
-        this.id = id;
+    public User(String email, String password, String role, Basket basket) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.basket = basket;
+    }
+
+    public User(String email, String password, String role, Basket basket, int orderId) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.basket = basket;
+        this.orderId = orderId;
     }
 
     public User(String email, String password, String role) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.basket = basket;
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 
     public int getOrderId() {

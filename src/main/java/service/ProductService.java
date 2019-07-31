@@ -3,6 +3,7 @@ package service;
 import model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -11,6 +12,8 @@ public interface ProductService {
     List<Product> getAll();
 
     void edit(Product product);
+
+    Optional<Product> getById(int id);
 
     void deleteProduct(Integer id);
 }

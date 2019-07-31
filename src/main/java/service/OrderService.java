@@ -10,7 +10,7 @@ public interface OrderService {
 
     void createOrder(Order order);
 
-    int getIdByUser(User user);
+    Order getOrderUser(User user);
 
     List<Product> getBasket(User user);
 
