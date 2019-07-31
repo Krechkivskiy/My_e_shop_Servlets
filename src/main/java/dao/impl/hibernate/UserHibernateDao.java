@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import util.HibernateConfiguration;
+import util.PasswordHashGenerator;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserHibernateDao implements UserDao {
     @Override
     public void addUser(User user) {
         Transaction transaction = null;
+        user.setPassword(PasswordHashGenerator.getCode(user.getPassword()));
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(user);

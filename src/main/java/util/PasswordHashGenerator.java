@@ -5,17 +5,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordHashGenerator {
+
     private PasswordHashGenerator() {
     }
 
     public static String getCode(String password) {
         MessageDigest digest = null;
+        password="123qwe"+password+"456asd";
         String result = "";
         try {
             digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(
                     password.getBytes(StandardCharsets.UTF_8));
-            result = bytesToHex(encodedhash);
+            result=bytesToHex(encodedhash);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

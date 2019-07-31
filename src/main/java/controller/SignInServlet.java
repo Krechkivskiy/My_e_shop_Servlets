@@ -8,6 +8,7 @@ import model.User;
 import service.BasketService;
 import service.ProductService;
 import service.UserService;
+import util.PasswordHashGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +30,7 @@ public class SignInServlet extends HttpServlet {
 
         UserService userService = UserServiceFactory.getInnstance();
         User inputUser = new User(request.getParameter("email"),
-                request.getParameter("password"));
+                PasswordHashGenerator.getCode(request.getParameter("password")));
         Optional<User> user = userService.checkIsPresentAndGetFullUserData(inputUser);
         if (user.isPresent()) {
             User userNotNull = user.get();
